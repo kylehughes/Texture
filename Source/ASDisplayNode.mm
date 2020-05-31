@@ -542,10 +542,12 @@ ASSynthesizeLockingMethodsWithMutex(__instanceLock__);
       self.opaque = NO;
     }
       
-    // CAEAGLLayer
-    if([[view.layer class] isSubclassOfClass:[CAEAGLLayer class]]){
-      _flags.canClearContentsOfLayer = NO;
-    }
+#if TARGET_OS_IOS && !TARGET_OS_MACCATALYST
+      // CAEAGLLayer
+      if([[view.layer class] isSubclassOfClass:[CAEAGLLayer class]]){
+        _flags.canClearContentsOfLayer = NO;
+      }
+#endif
   }
 
   return view;
